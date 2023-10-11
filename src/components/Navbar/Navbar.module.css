@@ -1,11 +1,12 @@
 .nav {
-    background-color: #caefb0;
-  }
+  background-color: #caefb0;
+}
 
-  .item {
-    color: rgb(216, 97, 33);
-  }
+.item a {
+  color: #000000;
+  text-decoration: none;
+}
 
-  .active {
-    color:gold;
-  }
+.item a.activeLink {
+  color: #2153db;
+}
