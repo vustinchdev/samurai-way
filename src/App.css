@@ -1,33 +1,24 @@
-body {
   *,
   *::before,
   *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-}    
 
-.app-wrapper {
-  display: grid;
-  max-width: 1170px;
-  width: 100%;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 2fr 10fr;
-  margin: 0 auto;
-}
+  .app-wrapper {
+    display: grid;
+    max-width: 1170px;
+    width: 100%;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    margin: 0 auto;
+  }
 
-li {
-  list-style: none;
-}
+  li {
+    list-style: none;
+  }
 
-.app-wrapper-content {
-  background-color: #b7f0fa;
-}
-
-
-
-
-
-
-
+  .app-wrapper-content {
+    background-color: #b7f0fa;
+  }
