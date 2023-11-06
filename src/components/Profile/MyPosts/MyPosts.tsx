@@ -6,9 +6,19 @@ import { PostType } from '../../../redux/state'
 
 type MyPostsType = {
     posts: PostType[]
+    addPost: (postMessage: string) => void
 }
 
 export const MyPosts: React.FC<MyPostsType> = (props) => {
+
+    let newPostElement = React.createRef<HTMLTextAreaElement>()
+
+    const addPost = () => {
+        let text = newPostElement.current?.value
+        if (text) {
+            props.addPost(text)
+        }
+    }
 
     let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />)
 
@@ -17,10 +27,10 @@ export const MyPosts: React.FC<MyPostsType> = (props) => {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={addPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
