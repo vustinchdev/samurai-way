@@ -17,6 +17,9 @@ export const MyPosts: React.FC<MyPostsType> = (props) => {
         let text = newPostElement.current?.value
         if (text) {
             props.addPost(text)
+            if (newPostElement.current?.value) {
+                newPostElement.current.value = ''
+            }
         }
     }
 
