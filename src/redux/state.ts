@@ -30,25 +30,7 @@ export type RootStateType = {
     dialogsPage: DialogsPageType
 }
 
-export type AddPostActionType = {
-    type: 'ADD-POST'
-}
-
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-
-export type AddMessageActionType = {
-    type: 'ADD-MESSAGE'
-}
-
-export type UpdateNewMessageTextActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newText: string
-}
-
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewMessageTextActionType
+export type ActionsType = AddPostACType | UpdateNewPostTextACType | AddMessageACType | UpdateNewMessageTextACType
 
 export type StoreType = {
     _state: RootStateType
@@ -125,5 +107,38 @@ export const store: StoreType = {
     }
 }
 
+type AddPostACType = ReturnType<typeof addPostAC>
+
+export const addPostAC = () => {
+    return {
+        type: 'ADD-POST'
+    } as const
+}
+
+type UpdateNewPostTextACType = ReturnType<typeof updateNewPostTextAC>
+
+export const updateNewPostTextAC = (text: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newText: text
+    } as const
+}
+
+type AddMessageACType = ReturnType<typeof addMessageAC>
+
+export const addMessageAC = () => {
+    return {
+        type: 'ADD-MESSAGE',
+    } as const
+}
+
+type UpdateNewMessageTextACType = ReturnType<typeof updateNewMessageTextAC>
+
+export const updateNewMessageTextAC = (text: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-TEXT',
+        newText: text
+    } as const
+}
 
 
