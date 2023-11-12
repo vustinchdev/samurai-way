@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import s from './MyPosts.module.css'
 import { Post } from './Post/Post'
 import { ActionsType, ProfilePageType, addPostAC, updateNewPostTextAC } from '../../../redux/state'
@@ -19,11 +19,9 @@ export const MyPosts: React.FC<MyPostsType> = (props) => {
 
     let postsElements = props.profilePage.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />)
 
-    const onPostChangeHandler = () => {
-        let text = newPostElement.current?.value
-        if (text) {
-            props.dispatch(updateNewPostTextAC(text))
-        }
+    const onPostChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value
+        props.dispatch(updateNewPostTextAC(text))
     }
 
     return (

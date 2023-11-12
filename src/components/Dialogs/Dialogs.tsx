@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import s from './Dialogs.module.css'
 import { DialogItem } from './DialogItem/DialogItem'
 import { Message } from './Message/Message'
@@ -21,11 +21,9 @@ export const Dialogs: React.FC<DialogsType> = (props) => {
     let dialogsElements = props.state.dialogs.map(d => <DialogItem id={d.id} name={d.name} />)
     let messagesElements = props.state.messages.map(m => <Message message={m.message} />)
 
-    const onChangeNewMessageHandler = () => {
-        let text = newMessage.current?.value
-        if (text) {
-            props.dispatch(updateNewMessageTextAC(text))
-        }
+    const onChangeNewMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let text = e.currentTarget.value
+        props.dispatch(updateNewMessageTextAC(text))
     }
 
     return (
