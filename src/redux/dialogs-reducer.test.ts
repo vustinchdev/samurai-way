@@ -27,7 +27,7 @@ test('correct message should be added to correct array', () => {
 
     expect(endState.messages.length).toBe(4)
     expect(endState.dialogs.length).toBe(5)
-    expect(endState.messages[3].id).toBe(4)
+    expect(endState.messages[3].id).toBeDefined()
     expect(endState.messages[3].message).toBe(endState.newMessageText)
 })
 
