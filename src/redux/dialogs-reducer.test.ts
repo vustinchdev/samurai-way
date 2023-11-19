@@ -1,5 +1,5 @@
 import { addMessageAC, dialogsReducer, updateNewMessageTextAC } from "./dialogs-reducer"
-import { DialogsPageType } from "./state"
+import { DialogsPageType } from "./store"
 
 let startState: DialogsPageType
 

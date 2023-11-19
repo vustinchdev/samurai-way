@@ -1,5 +1,5 @@
 import { addPostAC, profileReducer, updateNewPostTextAC } from "./profile-reducer";
-import { ProfilePageType } from "./state";
+import { ProfilePageType } from "./store";
 
 let startState: ProfilePageType
 

@@ -1,7 +1,22 @@
-import { ActionsType, DialogsPageType } from "./state"
+import { ActionsType, DialogsPageType } from "./store"
 
+const initialState: DialogsPageType = {
+    dialogs: [
+        { id: 1, name: 'Dima' },
+        { id: 2, name: 'Petr' },
+        { id: 3, name: 'Sveta' },
+        { id: 4, name: 'Viktor' },
+        { id: 5, name: 'Valera' }
+    ],
+    messages: [
+        { id: 1, message: 'hello' },
+        { id: 2, message: 'How are you?' },
+        { id: 3, message: 'hello' },
+    ],
+    newMessageText: ''
+}
 
-export const dialogsReducer = (state: DialogsPageType, action: ActionsType): DialogsPageType => {
+export const dialogsReducer = (state = initialState, action: ActionsType): DialogsPageType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessage = {
