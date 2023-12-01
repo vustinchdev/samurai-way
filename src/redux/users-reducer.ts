@@ -3,29 +3,26 @@ type UserLocationType = {
     country: string
 }
 
-type UserType = {
+export type UserType = {
     id: number
+    photoUrl: string
     followed: boolean
     fullName: string
     status: string
     location: UserLocationType
 }
 
-export type InitialStateType = {
+export type UsersStateType = {
     users: UserType[]
 }
 
-let initialState: InitialStateType = {
-    users: [
-        { id: 1, followed: false, fullName: 'Dima', status: 'status', location: { city: 'Minsk', country: 'Belarus' } },
-        { id: 2, followed: true, fullName: 'Petr', status: 'status', location: { city: 'Moscow', country: 'Russia' } },
-        { id: 3, followed: false, fullName: 'Sveta', status: 'status', location: { city: 'Minsk', country: 'Belarus' } }
-    ]
+let initialState: UsersStateType = {
+    users: []
 }
 
 type ActionsType = FollowACType | UnfollowACType | SetUsersType
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const usersReducer = (state: UsersStateType = initialState, action: ActionsType): UsersStateType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
