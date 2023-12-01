@@ -19,6 +19,7 @@ const App: React.FC = () => {
       <div className='app-wrapper-content'>
         <Route path='/profile' render={() => <Profile />} />
         <Route path='/dialogs' render={() => <DialogsContainer />} />
+        <Route path='/users' render={() => <div>users</div>} />
         <Route path='/news' component={News} />
         <Route path='/music' component={Music} />
         <Route path='/settings' component={Settings} />
