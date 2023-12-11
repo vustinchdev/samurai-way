@@ -5,9 +5,48 @@ let statrtState: UsersStateType
 beforeEach(() => {
     statrtState = {
         users: [
-            { id: 1, photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png', followed: false, fullName: 'Dima', status: 'status', location: { city: 'Minsk', country: 'Belarus' } },
-            { id: 2, photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png', followed: true, fullName: 'Petr', status: 'status', location: { city: 'Moscow', country: 'Russia' } },
-            { id: 3, photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png', followed: false, fullName: 'Sveta', status: 'status', location: { city: 'Minsk', country: 'Belarus' } }
+            {
+                id: 1,
+                name: 'Dima',
+                status: 'status',
+                photos: {
+                    small: null,
+                    large: null
+                },
+                followed: false,
+                location: {
+                    city: 'Minsk',
+                    country: 'Belarus'
+                }
+            },
+            {
+                id: 2,
+                name: 'Petr',
+                status: 'status',
+                photos: {
+                    small: null,
+                    large: null
+                },
+                followed: true,
+                location: {
+                    city: 'Moscow',
+                    country: 'Russia'
+                }
+            },
+            {
+                id: 3,
+                name: 'Sveta',
+                status: 'status',
+                photos: {
+                    small: null,
+                    large: null
+                },
+                followed: false,
+                location: {
+                    city: 'Minsk',
+                    country: 'Belarus'
+                }
+            }
         ]
     }
 })
@@ -33,8 +72,34 @@ test('the property followed should be changed to false in the correct object', (
 test('users should be added to the original array', () => {
 
     const users = [
-        { id: 4, photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png', followed: false, fullName: 'Pavel', status: 'status', location: { city: 'Minsk', country: 'Belarus' } },
-        { id: 5, photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png', followed: true, fullName: 'Ekaterina', status: 'status', location: { city: 'Moscow', country: 'Russia' } }
+        {
+            id: 4,
+            name: 'Pavel',
+            status: 'status',
+            photos: {
+                small: null,
+                large: null
+            },
+            followed: false,
+            location: {
+                city: 'Minsk',
+                country: 'Belarus'
+            }
+        },
+        {
+            id: 5,
+            name: 'Ekaterina',
+            status: 'status',
+            photos: {
+                small: null,
+                large: null
+            },
+            followed: true,
+            location: {
+                city: 'Moscow',
+                country: 'Russia'
+            }
+        }
     ]
 
     const endState = usersReducer(statrtState, setUsersAC(users))

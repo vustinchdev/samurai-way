@@ -1,45 +1,14 @@
 import React from 'react'
 import { UsersType } from './UsersContainer'
 import styles from './Users.module.css'
+import axios from 'axios'
+import userPhoto from '../../assets/images/user.png'
 
 export const Users: React.FC<UsersType> = (props) => {
 
     if (props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png',
-                followed: false,
-                fullName: 'Dima',
-                status: 'status',
-                location: {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                }
-            },
-            {
-                id: 2,
-                photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png',
-                followed: true,
-                fullName: 'Petr',
-                status: 'status',
-                location: {
-                    city: 'Moscow',
-                    country: 'Russia'
-                }
-            },
-            {
-                id: 3,
-                photoUrl: 'https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png',
-                followed: false,
-                fullName: 'Sveta',
-                status: 'status',
-                location: {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                }
-            }
-        ])
+        axios.get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(res => props.setUsers(res.data.items))
     }
 
     return (
@@ -48,7 +17,7 @@ export const Users: React.FC<UsersType> = (props) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photoUrl} className={styles.userPhoto} />
+                            <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto} />
                         </div>
                         <div>
                             {u.followed
@@ -59,12 +28,12 @@ export const Users: React.FC<UsersType> = (props) => {
                         </div>
                     </span>
                     <span>
-                        <div>{u.fullName}</div>
+                        <div>{u.name}</div>
                         <div>{u.status}</div>
                     </span>
                     <span>
-                        <div>{u.location.country}</div>
-                        <div>{u.location.city}</div>
+                        <div>{'u.location.country'}</div>
+                        <div>{'u.location.city'}</div>
                     </span>
                 </div>)
             }
