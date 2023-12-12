@@ -47,7 +47,10 @@ beforeEach(() => {
                     country: 'Belarus'
                 }
             }
-        ]
+        ],
+        pageSize: 5,
+        totalUsersCount: 0,
+        currentPage: 1
     }
 })
 
@@ -69,7 +72,7 @@ test('the property followed should be changed to false in the correct object', (
     expect(endState.users[2].followed).toBeFalsy()
 })
 
-test('users should be added to the original array', () => {
+test('users should be changed', () => {
 
     const users = [
         {
@@ -99,12 +102,27 @@ test('users should be added to the original array', () => {
                 city: 'Moscow',
                 country: 'Russia'
             }
+        },
+        {
+            id: 6,
+            name: 'Olga',
+            status: 'status',
+            photos: {
+                small: null,
+                large: null
+            },
+            followed: true,
+            location: {
+                city: 'Moscow',
+                country: 'Russia'
+            }
         }
     ]
 
     const endState = usersReducer(statrtState, setUsersAC(users))
 
-    expect(endState.users.length).toBe(5)
-    expect(endState.users[3].id).toBe(4)
-    expect(endState.users[4].id).toBe(5)
+    expect(endState.users.length).toBe(3)
+    expect(endState.users[0].id).toBe(4)
+    expect(endState.users[1].id).toBe(5)
+    expect(endState.users[2].id).toBe(6)
 })

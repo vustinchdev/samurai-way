@@ -3,3 +3,14 @@
     height: 100px;
     border-radius: 50%;
 }
+
+.selectedPage {
+    cursor: pointer;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+.page {
+    cursor: pointer;
+    margin-right: 5px;
+}
