@@ -1,12 +1,15 @@
-import { ActionsType, ProfilePageType } from "./store"
+import { ProfilePageType } from "./store"
 
 const initialState: ProfilePageType = {
     posts: [
         { id: 1, message: 'Hello, how are you?', likesCount: 15 },
         { id: 2, message: "It's my first post", likesCount: 20 }
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
+
+type ActionsType = AddPostACType | UpdateNewPostTextACType | SetUserProfile
 
 export const profileReducer = (state = initialState, action: ActionsType): ProfilePageType => {
     switch (action.type) {
@@ -28,6 +31,11 @@ export const profileReducer = (state = initialState, action: ActionsType): Profi
                 newPostText: action.newText
             }
         }
+        case 'SET-USER-PROFILE':
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
     }
@@ -48,5 +56,33 @@ export const updateNewPostTextAC = (text: string) => {
         type: 'UPDATE-NEW-POST-TEXT',
         newText: text
     } as const
+}
+
+export type SetUserProfile = ReturnType<typeof setUserProfile>
+
+export const setUserProfile = (profile: ProfileResponseType) => ({ type: 'SET-USER-PROFILE', profile } as const)
+
+type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+
+export type ProfileResponseType = {
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: {
+        small: string
+        large: string
+    }
 }
 

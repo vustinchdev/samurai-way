@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './Users.module.css'
 import userPhoto from '../../assets/images/user.png'
 import { MapStateType } from './UsersContainer'
+import { NavLink } from 'react-router-dom'
 
 type UsersType = MapStateType & {
     follow: (userId: number) => void
@@ -29,7 +30,9 @@ export const Users: React.FC<UsersType> = (props) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                         <div>
-                            <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto} />
+                            <NavLink to={'/profile/' + u.id} >
+                                <img src={u.photos.small !== null ? u.photos.small : userPhoto} className={styles.userPhoto} />
+                            </NavLink>
                         </div>
                         <div>
                             {u.followed
