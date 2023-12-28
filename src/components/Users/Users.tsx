@@ -9,6 +9,7 @@ type UsersType = MapStateType & {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
+    toggleFollowingInProgress: (userId: number, isFetching: boolean) => void
 }
 
 export const Users: React.FC<UsersType> = (props) => {
@@ -37,25 +38,27 @@ export const Users: React.FC<UsersType> = (props) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button onClick={() => {
-
+                                ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.toggleFollowingInProgress(u.id, true)
                                     axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, { withCredentials: true })
                                         .then(res => {
                                             if (res.data.resultCode === 0) {
                                                 props.unfollow(u.id)
                                             }
+                                            props.toggleFollowingInProgress(u.id, false)
                                         })
 
 
                                 }}>Unfollow</button>
 
-                                : <button onClick={() => {
-
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.toggleFollowingInProgress(u.id, true)
                                     axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, { withCredentials: true })
                                         .then(res => {
                                             if (res.data.resultCode === 0) {
                                                 props.follow(u.id)
                                             }
+                                            props.toggleFollowingInProgress(u.id, false)
                                         })
 
                                 }}>Follow</button>
