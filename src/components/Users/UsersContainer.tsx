@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { RootStateType } from "../../redux/redux-store";
 import {
-    UserType, follow, setCurrentPage, unfollow,
-    toggleFollowingInProgress, getUsers
+    UserType, follow, setCurrentPage, unfollow, getUsers
 } from "../../redux/users-reducer";
 import { Users } from "./Users";
 import { Preloader } from "../common/Preloader/Preloader";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 
 
 
@@ -68,9 +68,11 @@ const mapStateToProps = (state: RootStateType) => {
     }
 }
 
-export default connect(mapStateToProps,
+
+
+export default withAuthRedirect(connect(mapStateToProps,
     {
         follow, unfollow,
         setCurrentPage,
         getUsers
-    })(UsersContainer)
+    })(UsersContainer))
