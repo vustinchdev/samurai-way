@@ -1,4 +1,6 @@
+import { Dispatch } from "redux"
 import { ProfilePageType } from "./store"
+import { usersAPI } from "../api/api"
 
 const initialState: ProfilePageType = {
     posts: [
@@ -61,6 +63,14 @@ export const updateNewPostTextAC = (text: string) => {
 export type SetUserProfile = ReturnType<typeof setUserProfile>
 
 export const setUserProfile = (profile: ProfileResponseType) => ({ type: 'SET-USER-PROFILE', profile } as const)
+
+
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId)
+        .then(res => {
+            dispatch(setUserProfile(res.data))
+        })
+}
 
 type ContactsType = {
     github: string

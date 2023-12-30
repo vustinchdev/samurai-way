@@ -4,12 +4,12 @@ import userPhoto from '../../assets/images/user.png'
 import { MapStateType } from './UsersContainer'
 import { NavLink } from 'react-router-dom'
 import axios from 'axios'
+import { usersAPI } from '../../api/api'
 
 type UsersType = MapStateType & {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     onPageChanged: (pageNumber: number) => void
-    toggleFollowingInProgress: (userId: number, isFetching: boolean) => void
 }
 
 export const Users: React.FC<UsersType> = (props) => {
@@ -38,32 +38,12 @@ export const Users: React.FC<UsersType> = (props) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleFollowingInProgress(u.id, true)
-                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, { withCredentials: true })
-                                        .then(res => {
-                                            if (res.data.resultCode === 0) {
-                                                props.unfollow(u.id)
-                                            }
-                                            props.toggleFollowingInProgress(u.id, false)
-                                        })
+                                ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                    onClick={() => props.unfollow(u.id)}>Unfollow</button>
 
-
-                                }}>Unfollow</button>
-
-                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleFollowingInProgress(u.id, true)
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, { withCredentials: true })
-                                        .then(res => {
-                                            if (res.data.resultCode === 0) {
-                                                props.follow(u.id)
-                                            }
-                                            props.toggleFollowingInProgress(u.id, false)
-                                        })
-
-                                }}>Follow</button>
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                    onClick={() => props.follow(u.id)}>Follow</button>
                             }
-
                         </div>
                     </span>
                     <span>

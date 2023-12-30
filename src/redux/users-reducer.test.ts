@@ -1,4 +1,4 @@
-import { UsersStateType, follow, setUsers, unfollow, usersReducer } from "./users-reducer";
+import { UsersStateType, followSuccess, setUsers, unfollowSuccess, usersReducer } from "./users-reducer";
 
 let statrtState: UsersStateType
 
@@ -58,7 +58,7 @@ beforeEach(() => {
 
 test('the property followed should be changed to true in the correct object', () => {
 
-    const endState = usersReducer(statrtState, follow(1))
+    const endState = usersReducer(statrtState, followSuccess(1))
 
     expect(endState.users[0].followed).toBeTruthy()
     expect(endState.users[1].followed).toBeTruthy()
@@ -67,7 +67,7 @@ test('the property followed should be changed to true in the correct object', ()
 
 test('the property followed should be changed to false in the correct object', () => {
 
-    const endState = usersReducer(statrtState, unfollow(2))
+    const endState = usersReducer(statrtState, unfollowSuccess(2))
 
     expect(endState.users[0].followed).toBeFalsy()
     expect(endState.users[1].followed).toBeFalsy()
