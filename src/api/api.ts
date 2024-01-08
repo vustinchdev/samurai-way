@@ -15,9 +15,18 @@ export const usersAPI = {
     },
     unfollow(userId: number) {
         return instanse.delete(`follow/${userId}`)
-    },
+    }
+}
+
+export const profileAPI = {
     getProfile(userId: string) {
-        return instanse.get('profile/' + userId)
+        return instanse.get(`profile/${userId}`)
+    },
+    getStatus(userId: string) {
+        return instanse.get(`profile/status/${userId}`)
+    },
+    updateStatus(status: string) {
+        return instanse.put('profile/status', { status })
     }
 }
 

@@ -30,7 +30,8 @@ beforeEach(() => {
                 small: '',
                 large: ''
             }
-        }
+        },
+        status: ''
     }
 })
 

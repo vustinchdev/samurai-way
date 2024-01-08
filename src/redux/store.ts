@@ -22,6 +22,7 @@ export type ProfilePageType = {
     posts: PostType[]
     newPostText: string
     profile: ProfileResponseType | null
+    status: string
 }
 
 export type DialogsPageType = {
