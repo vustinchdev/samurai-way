@@ -1,53 +1,44 @@
-import { addPostAC, profileReducer, updateNewPostTextAC } from "./profile-reducer";
+import { addPostAC, profileReducer } from "./profile-reducer";
 import { ProfilePageType } from "./store";
 
-let startState: ProfilePageType
+let startState: ProfilePageType;
 
 beforeEach(() => {
-    startState = {
-        posts: [
-            { id: 1, message: 'Hello, how are you?', likesCount: 15 },
-            { id: 2, message: "It's my first post", likesCount: 20 }
-        ],
-        newPostText: '',
-        profile: {
-            userId: 1,
-            aboutMe: '',
-            lookingForAJob: true,
-            lookingForAJobDescription: '',
-            fullName: '',
-            contacts: {
-                github: '',
-                vk: '',
-                facebook: '',
-                instagram: '',
-                twitter: '',
-                website: '',
-                youtube: '',
-                mainLink: ''
-            },
-            photos: {
-                small: '',
-                large: ''
-            }
-        },
-        status: ''
-    }
-})
+  startState = {
+    posts: [
+      { id: 1, message: "Hello, how are you?", likesCount: 15 },
+      { id: 2, message: "It's my first post", likesCount: 20 },
+    ],
+    profile: {
+      userId: 1,
+      aboutMe: "",
+      lookingForAJob: true,
+      lookingForAJobDescription: "",
+      fullName: "",
+      contacts: {
+        github: "",
+        vk: "",
+        facebook: "",
+        instagram: "",
+        twitter: "",
+        website: "",
+        youtube: "",
+        mainLink: "",
+      },
+      photos: {
+        small: "",
+        large: "",
+      },
+    },
+    status: "",
+  };
+});
 
-test('correct post should be added to array', () => {
+test("correct post should be added to array", () => {
+  const endState = profileReducer(startState, addPostAC("hello"));
 
-    const endState = profileReducer(startState, addPostAC())
-
-    expect(endState.posts.length).toBe(3)
-    expect(endState.posts[2].id).toBeDefined()
-    expect(endState.posts[2].likesCount).toBe(0)
-    expect(endState.posts[2].message).toBe(endState.newPostText)
-})
-
-test('correct text should be added to newPostText', () => {
-
-    const endState = profileReducer(startState, updateNewPostTextAC('hello'))
-
-    expect(endState.newPostText).toBe('hello')
-})
+  expect(endState.posts.length).toBe(3);
+  expect(endState.posts[2].id).toBeDefined();
+  expect(endState.posts[2].likesCount).toBe(0);
+  expect(endState.posts[2].message).toBe("hello");
+});

@@ -1,54 +1,50 @@
-import { AddMessageACType, UpdateNewMessageTextACType } from "./dialogs-reducer"
-import { AddPostACType, ProfileResponseType, UpdateNewPostTextACType } from "./profile-reducer"
-
+import { AddMessageACType } from "./dialogs-reducer";
+import { AddPostACType, ProfileResponseType } from "./profile-reducer";
 
 export type PostType = {
-    id: number
-    message: string
-    likesCount: number
-}
+  id: number;
+  message: string;
+  likesCount: number;
+};
 
 export type DialogType = {
-    id: number
-    name: string
-}
+  id: number;
+  name: string;
+};
 
 export type MessageType = {
-    id: number
-    message: string
-}
+  id: number;
+  message: string;
+};
 
 export type ProfilePageType = {
-    posts: PostType[]
-    newPostText: string
-    profile: ProfileResponseType | null
-    status: string
-}
+  posts: PostType[];
+  profile: ProfileResponseType | null;
+  status: string;
+};
 
 export type DialogsPageType = {
-    dialogs: DialogType[]
-    messages: MessageType[]
-    newMessageText: string
-}
+  dialogs: DialogType[];
+  messages: MessageType[];
+};
 
-export type SidebarType = {}
+export type SidebarType = {};
 
 export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    sidebar: SidebarType
-}
+  profilePage: ProfilePageType;
+  dialogsPage: DialogsPageType;
+  sidebar: SidebarType;
+};
 
-export type ActionsType = AddPostACType | UpdateNewPostTextACType | AddMessageACType | UpdateNewMessageTextACType
+export type ActionsType = AddPostACType | AddMessageACType;
 
 export type StoreType = {
-    _state: RootStateType
-    getState: () => RootStateType
-    _callSubscriber: (state: RootStateType) => void
-    dispatch: (action: ActionsType) => void
-    subscribe: (observer: (state: RootStateType) => void) => void
-}
-
+  _state: RootStateType;
+  getState: () => RootStateType;
+  _callSubscriber: (state: RootStateType) => void;
+  dispatch: (action: ActionsType) => void;
+  subscribe: (observer: (state: RootStateType) => void) => void;
+};
 
 // export const store: StoreType = {
 //     _state: {
@@ -97,8 +93,3 @@ export type StoreType = {
 //         this._callSubscriber(this._state)
 //     }
 // }
-
-
-
-
-
