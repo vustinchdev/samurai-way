@@ -1,22 +1,25 @@
 import React from "react";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
-
 import { required } from "../../utils/validators/validators";
 import { Input } from "../common/FormsControls/FormsControls";
+import { connect } from "react-redux";
+import { login } from "./../../redux/auth-reducer";
+import { Redirect } from "react-router-dom";
+import { RootStateType } from "../../redux/redux-store";
 
 type FormDataType = {
-  login: string;
+  email: string;
   password: string;
   rememberMe: boolean;
 };
 
-export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
         <Field
           placeholder="Login"
-          name="login"
+          name="email"
           component={Input}
           validate={[required]}
         />
@@ -25,6 +28,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         <Field
           placeholder="Password"
           name="password"
+          type="password"
           component={Input}
           validate={[required]}
         />
@@ -40,12 +44,20 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
   );
 };
 
+type LoginType = MapStateToPropsType & {
+  login: (email: string, password: string, rememberMe: boolean) => void;
+};
+
 const LoginReduxForm = reduxForm<FormDataType>({ form: "login" })(LoginForm);
 
-export const Login = () => {
+export const Login = (props: LoginType) => {
   const onSubmit = (formData: FormDataType) => {
-    console.log(formData);
+    props.login(formData.email, formData.password, formData.rememberMe);
   };
+
+  if (props.isAuth) {
+    return <Redirect to="/profile" />;
+  }
 
   return (
     <div>
@@ -54,3 +66,13 @@ export const Login = () => {
     </div>
   );
 };
+
+const MapStateToProps = (state: RootStateType): MapStateToPropsType => ({
+  isAuth: state.auth.isAuth,
+});
+
+type MapStateToPropsType = {
+  isAuth: boolean;
+};
+
+export default connect(MapStateToProps, { login })(Login);
