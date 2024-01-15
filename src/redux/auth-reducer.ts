@@ -59,7 +59,7 @@ export const setAuthUserData = (data: AuthDataType, isAuth: boolean) => {
 };
 
 export const getAuthUserData = () => (dispatch: Dispatch) => {
-  authAPI.me().then((res) => {
+  return authAPI.me().then((res) => {
     if (res.data.resultCode === 0) {
       dispatch(setAuthUserData(res.data.data, true));
     }
