@@ -1,5 +1,6 @@
+import { ProfileResponse } from "../api/api";
 import { AddMessageACType } from "./dialogs-reducer";
-import { AddPostACType, ProfileResponseType } from "./profile-reducer";
+import { AddPostACType } from "./profile-reducer";
 
 export type PostType = {
   id: number;
@@ -19,7 +20,7 @@ export type MessageType = {
 
 export type ProfilePageType = {
   posts: PostType[];
-  profile: ProfileResponseType | null;
+  profile: ProfileResponse | null;
   status: string;
 };
 

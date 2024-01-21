@@ -9,7 +9,7 @@ import {
 } from "../../../utils/validators/validators";
 import { Textarea } from "../../common/FormsControls/FormsControls";
 
-export const MyPosts: React.FC<MyPostsType> = (props) => {
+export const MyPosts: React.FC<MyPostsType> = React.memo((props) => {
   let postsElements = props.posts.map((p) => (
     <Post key={p.id} message={p.message} likesCount={p.likesCount} />
   ));
@@ -25,7 +25,7 @@ export const MyPosts: React.FC<MyPostsType> = (props) => {
       <div className={s.posts}>{postsElements}</div>
     </div>
   );
-};
+});
 
 type AddPostFormDataType = {
   newPost: string;

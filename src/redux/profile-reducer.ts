@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { ProfilePageType } from "./store";
-import { profileAPI, usersAPI } from "../api/api";
+import { ProfileResponse, profileAPI } from "../api/api";
 
 const initialState: ProfilePageType = {
   posts: [
@@ -49,7 +49,7 @@ export const addPostAC = (newPost: string) => {
 
 export type SetUserProfile = ReturnType<typeof setUserProfile>;
 
-export const setUserProfile = (profile: ProfileResponseType) =>
+export const setUserProfile = (profile: ProfileResponse) =>
   ({ type: "SET-USER-PROFILE", profile } as const);
 
 export type SetStatus = ReturnType<typeof setStatus>;
@@ -69,33 +69,9 @@ export const getStatus = (userId: string) => (dispatch: Dispatch) => {
 };
 
 export const updateStatus = (status: string) => (dispatch: Dispatch) => {
-  profileAPI.getStatus(status).then((res) => {
+  profileAPI.updateStatus(status).then((res) => {
     if (res.data.resultCode === 0) {
-      dispatch(setStatus(res.data));
+      dispatch(setStatus(status));
     }
   });
-};
-
-type ContactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-};
-
-export type ProfileResponseType = {
-  userId: number;
-  aboutMe: string;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: ContactsType;
-  photos: {
-    small: string;
-    large: string;
-  };
 };

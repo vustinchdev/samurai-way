@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { RootStateType } from "../../redux/redux-store";
 import {
-  UserType,
   follow,
   setCurrentPage,
   unfollow,
@@ -19,9 +18,10 @@ import {
   getTotalUsersCountSelector,
   getUsersSelector,
 } from "../../redux/users-selectors";
+import { UserResponse } from "../../api/api";
 
 export type MapStateType = {
-  users: UserType[];
+  users: UserResponse[];
   pageSize: number;
   totalUsersCount: number;
   currentPage: number;

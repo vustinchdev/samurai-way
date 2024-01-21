@@ -3,7 +3,6 @@ import { Profile } from "./Profile";
 import { connect } from "react-redux";
 import { RootStateType } from "../../redux/redux-store";
 import {
-  ProfileResponseType,
   setUserProfile,
   getUserProfile,
   getStatus,
@@ -12,16 +11,17 @@ import {
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import { ProfileResponse } from "../../api/api";
 
 type MapStateToPropsType = {
-  profile: ProfileResponseType | null;
+  profile: ProfileResponse | null;
   status: string;
   authorizedUserId: number | null;
   isAuth: boolean;
 };
 
 type MapDispatchToPropsType = {
-  setUserProfile: (profile: ProfileResponseType) => void;
+  setUserProfile: (profile: ProfileResponse) => void;
   getUserProfile: (userId: string) => void;
   getStatus: (userId: string) => void;
   updateStatus: (status: string) => void;

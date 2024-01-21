@@ -1,25 +1,8 @@
 import { Dispatch } from "redux";
-import { usersAPI } from "../api/api";
-
-type UserLocationType = {
-  city: string;
-  country: string;
-};
-
-export type UserType = {
-  id: number;
-  name: string;
-  status: string;
-  photos: {
-    small: null | string;
-    large: null | string;
-  };
-  followed: boolean;
-  location: UserLocationType;
-};
+import { UserResponse, usersAPI } from "../api/api";
 
 export type UsersStateType = {
-  users: UserType[];
+  users: UserResponse[];
   pageSize: number;
   totalUsersCount: number;
   currentPage: number;
@@ -122,7 +105,7 @@ export const unfollowSuccess = (userId: number) => {
 
 type SetUsersACType = ReturnType<typeof setUsers>;
 
-export const setUsers = (users: UserType[]) => {
+export const setUsers = (users: UserResponse[]) => {
   return {
     type: "SET-USERS",
     payload: {
