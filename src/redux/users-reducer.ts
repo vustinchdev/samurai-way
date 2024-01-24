@@ -37,44 +37,42 @@ export const usersReducer = (
       return {
         ...state,
         users: state.users.map((u) =>
-          u.id === action.payload.userId ? { ...u, followed: true } : u
+          u.id === action.userId ? { ...u, followed: true } : u
         ),
       };
     case "UNFOLLOW":
       return {
         ...state,
         users: state.users.map((u) =>
-          u.id === action.payload.userId ? { ...u, followed: false } : u
+          u.id === action.userId ? { ...u, followed: false } : u
         ),
       };
     case "SET-USERS":
       return {
         ...state,
-        users: action.payload.users,
+        users: action.users,
       };
     case "SET-CURRENT-PAGE":
       return {
         ...state,
-        currentPage: action.payload.currentPage,
+        currentPage: action.currentPage,
       };
     case "SET-TOTAL-USERS-COUNT":
       return {
         ...state,
-        totalUsersCount: action.payload.totalUsersCount,
+        totalUsersCount: action.totalUsersCount,
       };
     case "TOGGLE-IS-FETCHING":
       return {
         ...state,
-        isFetching: action.payload.isFetching,
+        isFetching: action.isFetching,
       };
     case "TOGGLE-FOLLOWING-IN-PROGRESS":
       return {
         ...state,
-        followingInProgress: action.payload.isFetching
-          ? [...state.followingInProgress, action.payload.userId]
-          : state.followingInProgress.filter(
-              (id) => id !== action.payload.userId
-            ),
+        followingInProgress: action.isFetching
+          ? [...state.followingInProgress, action.userId]
+          : state.followingInProgress.filter((id) => id !== action.userId),
       };
     default:
       return state;
@@ -83,84 +81,40 @@ export const usersReducer = (
 
 type FollowACType = ReturnType<typeof followSuccess>;
 
-export const followSuccess = (userId: number) => {
-  return {
-    type: "FOLLOW",
-    payload: {
-      userId,
-    },
-  } as const;
-};
+export const followSuccess = (userId: number) =>
+  ({ type: "FOLLOW", userId } as const);
 
 type UnfollowACType = ReturnType<typeof unfollowSuccess>;
 
-export const unfollowSuccess = (userId: number) => {
-  return {
-    type: "UNFOLLOW",
-    payload: {
-      userId,
-    },
-  } as const;
-};
+export const unfollowSuccess = (userId: number) =>
+  ({ type: "UNFOLLOW", userId } as const);
 
 type SetUsersACType = ReturnType<typeof setUsers>;
 
-export const setUsers = (users: UserResponse[]) => {
-  return {
-    type: "SET-USERS",
-    payload: {
-      users,
-    },
-  } as const;
-};
+export const setUsers = (users: UserResponse[]) =>
+  ({ type: "SET-USERS", users } as const);
 
 type SetCurrentPageACType = ReturnType<typeof setCurrentPage>;
 
-export const setCurrentPage = (currentPage: number) => {
-  return {
-    type: "SET-CURRENT-PAGE",
-    payload: {
-      currentPage,
-    },
-  } as const;
-};
+export const setCurrentPage = (currentPage: number) =>
+  ({ type: "SET-CURRENT-PAGE", currentPage } as const);
 
 type SetTotalUsersCountACType = ReturnType<typeof setTotalUsersCount>;
 
-export const setTotalUsersCount = (totalUsersCount: number) => {
-  return {
-    type: "SET-TOTAL-USERS-COUNT",
-    payload: {
-      totalUsersCount,
-    },
-  } as const;
-};
+export const setTotalUsersCount = (totalUsersCount: number) =>
+  ({ type: "SET-TOTAL-USERS-COUNT", totalUsersCount } as const);
 
 type SetIsFetching = ReturnType<typeof toggleIsFetching>;
 
-export const toggleIsFetching = (isFetching: boolean) => {
-  return {
-    type: "TOGGLE-IS-FETCHING",
-    payload: {
-      isFetching,
-    },
-  } as const;
-};
+export const toggleIsFetching = (isFetching: boolean) =>
+  ({ type: "TOGGLE-IS-FETCHING", isFetching } as const);
 
 type ToggleFollowingInProgress = ReturnType<typeof toggleFollowingInProgress>;
 
 export const toggleFollowingInProgress = (
   userId: number,
   isFetching: boolean
-) => {
-  return {
-    type: "TOGGLE-FOLLOWING-IN-PROGRESS",
-    payload: {
-      userId,
-      isFetching,
-    },
-  } as const;
-};
+) => ({ type: "TOGGLE-FOLLOWING-IN-PROGRESS", userId, isFetching } as const);
 
 export const getUsers =
   (page: number, pageSize: number) => (dispatch: Dispatch) => {

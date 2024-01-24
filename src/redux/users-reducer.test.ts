@@ -1,7 +1,11 @@
 import {
   UsersStateType,
   followSuccess,
+  setCurrentPage,
+  setTotalUsersCount,
   setUsers,
+  toggleFollowingInProgress,
+  toggleIsFetching,
   unfollowSuccess,
   usersReducer,
 } from "./users-reducer";
@@ -60,7 +64,6 @@ test("the property followed should be changed to true in the correct object", ()
   expect(endState.users[1].followed).toBeTruthy();
   expect(endState.users[2].followed).toBeFalsy();
 });
-
 test("the property followed should be changed to false in the correct object", () => {
   const endState = usersReducer(statrtState, unfollowSuccess(2));
 
@@ -68,7 +71,6 @@ test("the property followed should be changed to false in the correct object", (
   expect(endState.users[1].followed).toBeFalsy();
   expect(endState.users[2].followed).toBeFalsy();
 });
-
 test("users should be changed", () => {
   const users = [
     {
@@ -112,4 +114,27 @@ test("users should be changed", () => {
   expect(endState.users[0].id).toBe(4);
   expect(endState.users[1].id).toBe(5);
   expect(endState.users[2].id).toBe(6);
+});
+test("current page should be changed", () => {
+  const endState = usersReducer(statrtState, setCurrentPage(2));
+
+  expect(endState.currentPage).toBe(2);
+});
+test("total users count should be set correctly", () => {
+  const endState = usersReducer(statrtState, setTotalUsersCount(1127));
+
+  expect(endState.totalUsersCount).toBe(1127);
+});
+test("the property isFetching should be changed to true", () => {
+  const endState = usersReducer(statrtState, toggleIsFetching(true));
+
+  expect(endState.isFetching).toBeTruthy();
+});
+test("followingInProgress", () => {
+  const endState = usersReducer(
+    statrtState,
+    toggleFollowingInProgress(3, true)
+  );
+
+  expect(endState.followingInProgress).toStrictEqual([3]);
 });
