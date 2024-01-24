@@ -20,7 +20,7 @@ export const dialogsReducer = (
   action: ActionsType
 ): DialogsPageType => {
   switch (action.type) {
-    case "ADD-MESSAGE":
+    case "dialogs/ADD-MESSAGE":
       return {
         ...state,
         messages: [
@@ -33,11 +33,7 @@ export const dialogsReducer = (
   }
 };
 
-export type AddMessageACType = ReturnType<typeof addMessageAC>;
+export const addMessageAC = (newMessageBody: string) =>
+  ({ type: "dialogs/ADD-MESSAGE", newMessageBody } as const);
 
-export const addMessageAC = (newMessageBody: string) => {
-  return {
-    type: "ADD-MESSAGE",
-    newMessageBody,
-  } as const;
-};
+export type AddMessageACType = ReturnType<typeof addMessageAC>;
