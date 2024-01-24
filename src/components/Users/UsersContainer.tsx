@@ -20,7 +20,7 @@ import {
 } from "../../redux/users-selectors";
 import { UserResponse } from "../../api/api";
 
-export type MapStateType = {
+export type MapStateToPorpsType = {
   users: UserResponse[];
   pageSize: number;
   totalUsersCount: number;
@@ -64,7 +64,7 @@ class UsersContainer extends React.Component<UsersAPIComponentType> {
 }
 
 export type UsersAPIComponentType = MapDispatchType &
-  MapStateType & {
+  MapStateToPorpsType & {
     isFetching: boolean;
   };
 

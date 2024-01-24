@@ -1,7 +1,5 @@
-import { AnyAction, Dispatch } from "redux";
 import { authAPI } from "../api/api";
-import { ThunkDispatch } from "redux-thunk";
-import { AppDispatch, RootStateType } from "./redux-store";
+import { AppDispatch } from "./redux-store";
 import { stopSubmit } from "redux-form";
 
 const initialState: AuthType = {
@@ -35,7 +33,7 @@ export const authReducer = (
 export const setAuthUserData = (data: AuthDataType, isAuth: boolean) =>
   ({ type: "auth/SET-USER-DATA", data, isAuth } as const);
 
-export const getAuthUserData = () => async (dispatch: Dispatch) => {
+export const getAuthUserData = () => async (dispatch: AppDispatch) => {
   const res = await authAPI.me();
   if (res.data.resultCode === 0) {
     dispatch(setAuthUserData(res.data.data, true));

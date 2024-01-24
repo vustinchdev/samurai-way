@@ -1,38 +1,35 @@
 import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
-import { MapStateType } from "./UsersContainer";
+import { MapStateToPorpsType } from "./UsersContainer";
 import { NavLink } from "react-router-dom";
+import { Paginator } from "../common/Paginator/Paginator";
 
-type UsersType = MapStateType & {
+type UsersType = MapStateToPorpsType & {
   follow: (userId: number) => void;
   unfollow: (userId: number) => void;
   onPageChanged: (pageNumber: number) => void;
 };
 
-export const Users: React.FC<UsersType> = (props) => {
-  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-  const pages = [];
-
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
-
+export const Users: React.FC<UsersType> = ({
+  totalUsersCount,
+  currentPage,
+  pageSize,
+  users,
+  followingInProgress,
+  follow,
+  unfollow,
+  onPageChanged,
+}) => {
   return (
     <div>
-      <div>
-        {pages.map((p) => (
-          <span
-            className={
-              props.currentPage === p ? styles.selectedPage : styles.page
-            }
-            onClick={() => props.onPageChanged(p)}
-          >
-            {p}
-          </span>
-        ))}
-      </div>
-      {props.users.map((u) => (
+      <Paginator
+        totalUsersCount={totalUsersCount}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChanged={onPageChanged}
+      />
+      {users.map((u) => (
         <div key={u.id}>
           <span>
             <div>
@@ -46,15 +43,15 @@ export const Users: React.FC<UsersType> = (props) => {
             <div>
               {u.followed ? (
                 <button
-                  disabled={props.followingInProgress.some((id) => id === u.id)}
-                  onClick={() => props.unfollow(u.id)}
+                  disabled={followingInProgress.some((id) => id === u.id)}
+                  onClick={() => unfollow(u.id)}
                 >
                   Unfollow
                 </button>
               ) : (
                 <button
-                  disabled={props.followingInProgress.some((id) => id === u.id)}
-                  onClick={() => props.follow(u.id)}
+                  disabled={followingInProgress.some((id) => id === u.id)}
+                  onClick={() => follow(u.id)}
                 >
                   Follow
                 </button>
@@ -65,10 +62,6 @@ export const Users: React.FC<UsersType> = (props) => {
             <div>{u.name}</div>
             <div>{u.status}</div>
           </span>
-          {/* <span>
-            <div>{"u.location.country"}</div>
-            <div>{"u.location.city"}</div>
-          </span> */}
         </div>
       ))}
     </div>

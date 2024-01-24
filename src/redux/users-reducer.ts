@@ -1,5 +1,5 @@
-import { Dispatch } from "redux";
 import { UserResponse, usersAPI } from "../api/api";
+import { AppDispatch } from "./redux-store";
 
 let initialState: UsersStateType = {
   users: [],
@@ -79,7 +79,7 @@ export const toggleFollowingInProgress = (
 ) => ({ type: "TOGGLE-FOLLOWING-IN-PROGRESS", userId, isFetching } as const);
 
 export const getUsers =
-  (page: number, pageSize: number) => async (dispatch: Dispatch) => {
+  (page: number, pageSize: number) => async (dispatch: AppDispatch) => {
     dispatch(toggleIsFetching(true));
     dispatch(setCurrentPage(page));
     const data = await usersAPI.getUsers(page, pageSize);
@@ -87,7 +87,7 @@ export const getUsers =
     dispatch(setUsers(data.items));
     dispatch(setTotalUsersCount(data.totalCount));
   };
-export const follow = (userId: number) => async (dispatch: Dispatch) => {
+export const follow = (userId: number) => async (dispatch: AppDispatch) => {
   dispatch(toggleFollowingInProgress(userId, true));
   const res = await usersAPI.follow(userId);
   if (res.data.resultCode === 0) {
@@ -95,7 +95,7 @@ export const follow = (userId: number) => async (dispatch: Dispatch) => {
   }
   dispatch(toggleFollowingInProgress(userId, false));
 };
-export const unfollow = (userId: number) => async (dispatch: Dispatch) => {
+export const unfollow = (userId: number) => async (dispatch: AppDispatch) => {
   dispatch(toggleFollowingInProgress(userId, true));
   const res = await usersAPI.unfollow(userId);
   if (res.data.resultCode === 0) {
