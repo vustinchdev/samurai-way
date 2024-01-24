@@ -37,11 +37,13 @@ type MapDispatchType = {
 
 class UsersContainer extends React.Component<UsersAPIComponentType> {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    const { currentPage, pageSize } = this.props;
+    this.props.getUsers(currentPage, pageSize);
   }
 
   onPageChanged = (pageNumber: number) => {
-    this.props.getUsers(pageNumber, this.props.pageSize);
+    const { pageSize } = this.props;
+    this.props.getUsers(pageNumber, pageSize);
   };
 
   render() {
