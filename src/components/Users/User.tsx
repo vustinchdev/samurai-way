@@ -17,7 +17,6 @@ export const User: React.FC<UserType> = ({
   follow,
   unfollow,
 }) => {
-  console.log(user);
   return (
     <div>
       <span>
