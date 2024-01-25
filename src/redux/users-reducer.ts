@@ -3,7 +3,7 @@ import { AppDispatch } from "./redux-store";
 
 let initialState: UsersStateType = {
   users: [],
-  pageSize: 5,
+  pageSize: 10,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
