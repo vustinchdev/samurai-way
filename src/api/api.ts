@@ -29,6 +29,17 @@ export const profileAPI = {
   updateStatus(status: string) {
     return instanse.put<BaseResponse>("profile/status", { status });
   },
+  savePhoto(photoFile: File) {
+    const formData = new FormData();
+    formData.append("image", photoFile);
+    return instanse.put<BaseResponse<{ photos: Photos }>>(
+      "profile/photo",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+  },
 };
 
 export const authAPI = {
@@ -47,7 +58,7 @@ export const authAPI = {
   },
 };
 
-type Photos = {
+export type Photos = {
   small: null | string;
   large: null | string;
 };

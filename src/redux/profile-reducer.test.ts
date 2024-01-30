@@ -2,6 +2,7 @@ import {
   addPostAC,
   deletePost,
   profileReducer,
+  setPhotoSuccess,
   setStatus,
   setUserProfile,
 } from "./profile-reducer";

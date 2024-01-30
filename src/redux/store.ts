@@ -20,7 +20,7 @@ export type MessageType = {
 
 export type ProfilePageType = {
   posts: PostType[];
-  profile: ProfileResponse | null;
+  profile: ProfileResponse;
   status: string;
 };
 

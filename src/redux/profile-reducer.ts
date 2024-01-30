@@ -1,5 +1,5 @@
 import { ProfilePageType } from "./store";
-import { ProfileResponse, profileAPI } from "../api/api";
+import { Photos, ProfileResponse, profileAPI } from "../api/api";
 import { AppDispatch } from "./redux-store";
 
 const initialState: ProfilePageType = {
@@ -7,7 +7,27 @@ const initialState: ProfilePageType = {
     { id: 1, message: "Hello, how are you?", likesCount: 15 },
     { id: 2, message: "It's my first post", likesCount: 20 },
   ],
-  profile: null,
+  profile: {
+    aboutMe: "",
+    contacts: {
+      facebook: "",
+      github: "",
+      instagram: "",
+      mainLink: "",
+      twitter: "",
+      vk: "",
+      website: "",
+      youtube: "",
+    },
+    fullName: "",
+    lookingForAJob: false,
+    lookingForAJobDescription: "",
+    photos: {
+      large: null,
+      small: null,
+    },
+    userId: 2,
+  },
   status: "",
 };
 
@@ -36,6 +56,8 @@ export const profileReducer = (
         ...state,
         posts: state.posts.filter((p) => p.id !== action.postId),
       };
+    case "profile/SAVE-PHOTO-SUCCESS":
+      return { ...state, profile: { ...state.profile, photos: action.photos } };
     default:
       return state;
   }
@@ -49,6 +71,8 @@ export const setStatus = (status: string) =>
   ({ type: "profile/SET-STATUS", status } as const);
 export const deletePost = (postId: number) =>
   ({ type: "profile/DELETE-POST", postId } as const);
+export const setPhotoSuccess = (photos: Photos) =>
+  ({ type: "profile/SAVE-PHOTO-SUCCESS", photos } as const);
 
 export const getUserProfile =
   (userId: string) => async (dispatch: AppDispatch) => {
@@ -66,10 +90,17 @@ export const updateStatus =
       dispatch(setStatus(status));
     }
   };
+export const savePhoto = (file: File) => async (dispatch: AppDispatch) => {
+  const res = await profileAPI.savePhoto(file);
+  if (res.data.resultCode === 0) {
+    dispatch(setPhotoSuccess(res.data.data.photos));
+  }
+};
 
 export type AddPostACType = ReturnType<typeof addPostAC>;
 type ActionsType =
   | AddPostACType
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof setStatus>
-  | ReturnType<typeof deletePost>;
+  | ReturnType<typeof deletePost>
+  | ReturnType<typeof setPhotoSuccess>;

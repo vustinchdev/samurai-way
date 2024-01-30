@@ -1,3 +1,8 @@
 .descriptionBlock {
-    padding: 10px;
+  padding: 10px;
+}
+
+.defaultPhoto {
+  max-width: 200px;
+  border-radius: 50%;
 }
