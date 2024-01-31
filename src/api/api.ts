@@ -40,6 +40,9 @@ export const profileAPI = {
       }
     );
   },
+  saveProfile(profile: ProfileResponse) {
+    return instanse.put<BaseResponse>("profile", profile);
+  },
 };
 
 export const authAPI = {
@@ -81,6 +84,7 @@ type BaseResponse<T = {}> = {
   data: T;
 };
 type ContactsType = {
+  [key: string]: string;
   github: string;
   vk: string;
   facebook: string;
