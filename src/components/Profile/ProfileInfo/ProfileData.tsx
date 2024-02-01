@@ -30,7 +30,6 @@ export const ProfileData = ({ profile, isOwner, goToEditMode }: Props) => {
       <div>
         <b>Contacts</b>:
         {Object.keys(profile.contacts).map((key) => {
-          console.log(profile.contacts[key]);
           return <Contact key={key} contactTitle={key} contactValue={""} />;
         })}
       </div>

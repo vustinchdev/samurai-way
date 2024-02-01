@@ -49,15 +49,27 @@ export const authAPI = {
   me() {
     return instanse.get<BaseResponse<AuthData>>("auth/me");
   },
-  login(email: string, password: string, rememberMe: boolean = false) {
+  login(
+    email: string,
+    password: string,
+    rememberMe: boolean = false,
+    captcha: string
+  ) {
     return instanse.post<BaseResponse>("auth/login", {
       email,
       password,
       rememberMe,
+      captcha,
     });
   },
   logout() {
     return instanse.delete<BaseResponse>("auth/login");
+  },
+};
+
+export const securityAPI = {
+  getCaptchaUrl() {
+    return instanse.get<Captcha>("security/get-captcha-url");
   },
 };
 
@@ -84,7 +96,6 @@ type BaseResponse<T = {}> = {
   data: T;
 };
 type ContactsType = {
-  [key: string]: string;
   github: string;
   vk: string;
   facebook: string;
@@ -107,4 +118,7 @@ type AuthData = {
   id: number;
   email: string;
   login: string;
+};
+export type Captcha = {
+  url: string;
 };
