@@ -1,10 +1,11 @@
+import { Space, Spin } from "antd";
 import React from "react";
-import preloader from "./../../../assets/images/preloader.svg";
+import s from "./Preloader.module.css";
 
-export const Preloader = () => {
-  return (
-    <div>
-      <img src={preloader} />
-    </div>
-  );
-};
+export const Preloader: React.FC = () => (
+  <div className={s.center}>
+    <Space size="middle">
+      <Spin size="large" />
+    </Space>
+  </div>
+);

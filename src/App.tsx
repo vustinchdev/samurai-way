@@ -14,6 +14,7 @@ import { initializeApp } from "./redux/app-reducer";
 import { Preloader } from "./components/common/Preloader/Preloader";
 import { RootStateType } from "./redux/redux-store";
 import { withSuspense } from "./hoc/withSuspense";
+import { ErrorPage } from "./components/common/ErrorPage/ErrorPage";
 
 const DialogsContainer = React.lazy(
   () => import("./components/Dialogs/DialogsContainer")
@@ -42,24 +43,26 @@ class App extends React.Component<AppType> {
       return <Preloader />;
     }
     return (
-      <div className="app-wrapper">
+      <div>
         <HeaderContainer />
-        <Navbar />
-        <div className="app-wrapper-content">
-          <Switch>
-            <Route exact path="/" render={() => <Redirect to="/profile" />} />
-            <Route
-              path="/profile/:userId?"
-              render={withSuspense(ProfileContainer)}
-            />
-            <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
-            <Route path="/users" render={() => <UsersContainer />} />
-            <Route path="/login" render={() => <Login />} />
-            <Route path="/news" component={News} />
-            <Route path="/music" component={Music} />
-            <Route path="/settings" component={Settings} />
-            <Route path="*" render={() => <div>404 NOT FOUND</div>} />
-          </Switch>
+        <div className="app-wrapper">
+          <Navbar />
+          <div className="app-wrapper-content">
+            <Switch>
+              <Route exact path="/" render={() => <Redirect to="/profile" />} />
+              <Route
+                path="/profile/:userId?"
+                render={withSuspense(ProfileContainer)}
+              />
+              <Route path="/dialogs" render={withSuspense(DialogsContainer)} />
+              <Route path="/users" render={() => <UsersContainer />} />
+              <Route path="/login" render={() => <Login />} />
+              <Route path="/news" component={News} />
+              <Route path="/music" component={Music} />
+              <Route path="/settings" component={Settings} />
+              <Route path="*" render={() => <ErrorPage />} />
+            </Switch>
+          </div>
         </div>
       </div>
     );

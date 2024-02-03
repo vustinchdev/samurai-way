@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { useState } from "react";
 import s from "./ProfileInfo.module.css";
 import { Preloader } from "../../common/Preloader/Preloader";
 import { ProfilePropsType } from "../Profile";
@@ -7,6 +7,7 @@ import userPhoto from "./../../../assets/images/user.png";
 import { ProfileData } from "./ProfileData";
 import { ProfileDataFormReduxForm } from "./ProfileDataForm";
 import { ProfileResponse } from "../../../api/api";
+import { SelectFile } from "../../common/SelectFile/SelectFile";
 
 export const ProfileInfo: React.FC<ProfilePropsType> = ({
   isOwner,
@@ -22,12 +23,6 @@ export const ProfileInfo: React.FC<ProfilePropsType> = ({
     return <Preloader />;
   }
 
-  const onMainPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length) {
-      savePhoto(e.target.files[0]);
-    }
-  };
-
   const onSubmit = (formData: ProfileResponse) => {
     saveProfile(formData).then(() => {
       setEditMode(false);
@@ -41,7 +36,8 @@ export const ProfileInfo: React.FC<ProfilePropsType> = ({
           src={profile.photos.large || userPhoto}
           className={s.defaultPhoto}
         />
-        {isOwner && <input type="file" onChange={onMainPhotoSelected} />}
+        {isOwner && <SelectFile savePhoto={savePhoto} />}
+        <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
         {editMode ? (
           <ProfileDataFormReduxForm
             initialValues={profile}
@@ -55,7 +51,6 @@ export const ProfileInfo: React.FC<ProfilePropsType> = ({
             goToEditMode={() => setEditMode(true)}
           />
         )}
-        <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
     </div>
   );

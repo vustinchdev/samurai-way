@@ -1,0 +1,16 @@
+.selectFileBlock {
+  margin: 15px 0 15px 40px;
+}
+
+.inp {
+  visibility: hidden;
+}
+
+.btn {
+  border-radius: 30px;
+  background-color: #27aae1;
+  padding: 5px 20px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}

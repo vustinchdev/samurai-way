@@ -1,5 +1,6 @@
 import { ProfileResponse } from "../../../api/api";
 import { Contact } from "./Contact";
+import s from "./ProfileInfo.module.css";
 
 type Props = {
   profile: ProfileResponse;
@@ -12,7 +13,9 @@ export const ProfileData = ({ profile, isOwner, goToEditMode }: Props) => {
     <div>
       {isOwner && (
         <div>
-          <button onClick={goToEditMode}>edit</button>
+          <button onClick={goToEditMode} className={s.antBtn}>
+            edit
+          </button>
         </div>
       )}
       <div>
